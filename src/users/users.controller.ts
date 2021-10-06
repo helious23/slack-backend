@@ -1,12 +1,22 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { JoinRequestDto } from './dtos/join.request.dto';
 import { UsersService } from './users.service';
 import { UserDto } from '../common/dtos/user.dto';
 import { User } from 'src/common/decorators/user.decorator';
+import { UndefinedToNullInterceptor } from '../common/interceptors/undefinedToNull.interceptor';
 
-@ApiTags('USER')
+// @UseInterceptors(UndefinedToNullInterceptor) // interceptor 장착. 개별 라우터에만 적용도 가능.
+@ApiTags('USER') // sweagger 문서 그룹화
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
